@@ -1,4 +1,16 @@
 #!/usr/bin/env python
+#!/usr/bin/env python
+##########################################
+#
+# AgentCartPole.py: A super-basic agent for the CartPole-v1 environment in OpenAI Gym
+#  
+#
+# Author: Cosimo Iaia <cosimo.iaia@gmail.com>
+# Date: 24/01/2019
+#
+# This file is distribuited under the terms of GNU General Public
+#
+########################################
 
 import gym
 import random
@@ -15,23 +27,7 @@ score_requirement = 60
 intial_games = 10000
 
 
-def play_a_random_game_first():
-    for step_index in range(goal_steps):
-        #env.render()
-        action = env.action_space.sample()
-        observation, reward, done, info = env.step(action)
-        print("Step {}:".format(step_index))
-        print("action: {}".format(action))
-        print("observation: {}".format(observation))
-        print("reward: {}".format(reward))
-        print("done: {}".format(done))
-        print("info: {}".format(info))
-        if done:
-            break
-    env.reset()
-
-#play_a_random_game_first()
-
+# Generate 10k games results with random data
 def model_data_preparation():
     training_data = []
     accepted_scores = []
@@ -70,10 +66,10 @@ def model_data_preparation():
 training_data = model_data_preparation()
 
 
+# Build a super simple Sequential model
 def build_model(input_size, output_size):
     model = Sequential()
-    model.add(Dense(128, input_dim=input_size, activation='relu'))
-    model.add(Dense(52, activation='relu'))
+    model.add(Dense(256, input_dim=input_size, activation='relu'))
     model.add(Dense(output_size, activation='linear'))
     model.compile(loss='mse', optimizer=Adam())
     return model
